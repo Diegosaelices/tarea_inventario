@@ -23,6 +23,7 @@ public class Equipo {
     private LocalDate fechaAlta;
     private String caracteristicas;
 
+    //Ponemos el JsonIgnore para que no se cree un bucle infinito
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "aula_id")
