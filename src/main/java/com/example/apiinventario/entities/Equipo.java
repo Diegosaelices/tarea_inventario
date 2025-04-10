@@ -26,6 +26,7 @@ public class Equipo {
     //Ponemos el JsonIgnore para que no se cree un bucle infinito.
     @JsonIgnore
     @ManyToOne
+    //Nombre con el que se vera en la bbdd
     @JoinColumn(name = "aula_id")
     private Aula aula;
 }
