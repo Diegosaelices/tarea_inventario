@@ -1,6 +1,5 @@
 package com.example.apiinventario.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +19,8 @@ public class Aula {
 
     private String nombre;
 
-    // IMPORTANTE: Usamos PERSIST y MERGE para mantener la relación,
-    // pero evitamos REMOVE para que los equipos NO se eliminen cuando se borra un aula
+    // IMPORTANTE: Pongo PERSIST y MERGE para mantener la relación,
+    // si pusieramos REMOVE los equipos se borrarian al borrar un aula.
     @OneToMany(mappedBy = "aula", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Equipo> equipos;
 }
