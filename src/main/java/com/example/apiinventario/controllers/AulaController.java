@@ -51,10 +51,10 @@ public class AulaController {
         Aula aula = aulaRepo.findById(id).orElse(null);
         if (aula != null) {
             for (Equipo e : aula.getEquipos()) {
-                e.setAula(null);
-                equipoRepo.save(e);
+                e.setAula(null);   // Quitamos la relación con el aula (aula=null)
+                equipoRepo.save(e); //guardamos el equipo
             }
-            aulaRepo.delete(aula);
+            aulaRepo.delete(aula); //borramos el aula
         }
     }
 
@@ -64,12 +64,12 @@ public class AulaController {
         Optional<Aula> aulaOpt = aulaRepo.findById(aulaId);
         Optional<Equipo> equipoOpt = equipoRepo.findById(equipoId);
 
-        if (aulaOpt.isPresent() && equipoOpt.isPresent()) {
+        if (aulaOpt.isPresent() && equipoOpt.isPresent()) { //buscamos que existan
             Aula aula = aulaOpt.get();
             Equipo equipo = equipoOpt.get();
 
-            equipo.setAula(aula);
-            aula.getEquipos().add(equipo);
+            equipo.setAula(aula);           // Asignamos el aula al equipo
+            aula.getEquipos().add(equipo);  // Añadimos el equipo al aula
 
             aulaRepo.save(aula);
             equipoRepo.save(equipo);
@@ -86,13 +86,13 @@ public class AulaController {
         Optional<Aula> aulaOpt = aulaRepo.findById(aulaId);
         Optional<Equipo> equipoOpt = equipoRepo.findById(equipoId);
 
-        if (aulaOpt.isPresent() && equipoOpt.isPresent()) {
+        if (aulaOpt.isPresent() && equipoOpt.isPresent()) { //buscamos que existen
             Aula aula = aulaOpt.get();
             Equipo equipo = equipoOpt.get();
 
-            if (equipo.getAula() != null && equipo.getAula().getId().equals(aulaId)) {
-                equipo.setAula(null);
-                aula.getEquipos().remove(equipo);
+            if (equipo.getAula() != null && equipo.getAula().getId().equals(aulaId)) { //Comprobamos si el equipo está en esa aula.
+                equipo.setAula(null);               // Quitamos la referencia al aula
+                aula.getEquipos().remove(equipo);   // Lo sacamos de la lista del aula
 
                 equipoRepo.save(equipo);
                 aulaRepo.save(aula);
